@@ -1,5 +1,21 @@
 #!/usr/bin/php
 <?php
+
+function	op($op)
+{
+	if ($op == "+")
+		return true;
+	elseif ($op == "-")
+		return true;
+	elseif ($op == "/")
+		return true;
+	elseif ($op == "*")
+		return true;
+	elseif ($op == "%")
+		return true;
+	return false;
+}
+
 if(count($argv) != 2){
 	echo "Incorrect Parameters".PHP_EOL;
 	return ;
@@ -13,12 +29,24 @@ for ($x = 0; $x < strlen($line); $x++)
 {
 	if (isset($op))
 	{
-		$second = $second . $line[$x];
+		if (ctype_digit($line[$x]))
+			$second = $second . $line[$x];
+		else
+		{
+			echo "Syntax Error" . PHP_EOL;
+			return ;
+		}
 	}
 	else
 	{
 		if (!ctype_digit($line[$x]))
-			$op = $line[$x];
+			if (op($line[$x]))
+				$op = $line[$x];
+			else
+			{
+				echo "Syntax Error" . PHP_EOL;
+				return ;
+			}
 		else
 			$first = $first . $line[$x];
 	}
